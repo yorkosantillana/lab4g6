@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +29,9 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends AppCompatActivity implements  Regreso {
@@ -40,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
     private EditText editTextPasswordRegistro;
     private EditText editTextUsuarioSesion;
     private EditText editTextPassword;
+
+    UsuarioDTO usuDTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +86,29 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
         postApiBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postDataLOGIN(emailIniciar,passwordIniciar);
+                postDataLOGIN(emailIniciar, passwordIniciar);
 
+                Usuario[] arregloUsuario = usuDTO.getUsuario();
+                Gson g = new Gson();
+                String usuarioGuardar = g.toJson(arregloUsuario);
+                String fileNameJson = "sesionusuario";
+
+
+
+                
+                try {
+                    FileOutputStream fileOutputStream = MainActivity.this.openFileOutput(fileNameJson, Context.MODE_PRIVATE);
+                    String texto = "Vamos a guardar esta demo ";
+                    FileWriter fileWriter = new FileWriter(fileOutputStream.getFD());
+                    fileWriter.write(texto);
+                    Log.d("infoApp", "escritura exitosa");
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
             }
         });
+
         //###########################
 
 
@@ -91,7 +116,22 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
 
     public void MostrarFragmento (){
 
@@ -127,13 +167,19 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
 
 
 
-    public void postDataLOGIN(String email, String password) {
+
+
+
+
+
+
+    public void postDataLOGIN(String emailIniciar, String passwordIniciar) {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject object = new JSONObject();
         try {
             //input your API parameters
-            object.put("email", email);
-            object.put("password", password);
+            object.put("email", emailIniciar);
+            object.put("password", passwordIniciar);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -146,9 +192,10 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
 
                         String jsonString = response.toString();
                         Gson g = new Gson();
-                        Usuario usu = g.fromJson(jsonString, Usuario.class);
+                        usuDTO = g.fromJson(jsonString, UsuarioDTO.class);
 
-                        resultTextView.setText(usu.getName());
+                        //resultTextView.setText(usu.getName());
+
 
                         /*
                         for (Answer ans: usu.getAnswers()){
