@@ -13,6 +13,7 @@ public class Usuario {
     private String updatedAt;
     private String questions;
     private List<Answer> answers;
+    //private String answers;
 
 
     public void Usuario (int id,String name,String email,String password,String token,String createdAt,String updatedAt,String questions, List<Answer> answers){

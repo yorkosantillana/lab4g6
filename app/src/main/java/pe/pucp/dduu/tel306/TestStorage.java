@@ -35,6 +35,7 @@ public class TestStorage extends AppCompatActivity {
 
     private Button getApiBtn, postApiBtnNew,postApiBtnLogin;
     private TextView resultTextView;
+
     //private static final String TAG = MainActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +46,8 @@ public class TestStorage extends AppCompatActivity {
         //###########################
         //PARA CONSULTAR EL API
         String name = "";
-        String email= "yorko345@pucp.pe";
-        String password = "12345";
+        String email= "mgsotelo@pucp.pe";
+        String password = "1234567890";
 
         resultTextView = (TextView) findViewById(R.id.resultTextView);
         getApiBtn = (Button) findViewById(R.id.getApiBtn);
@@ -72,6 +73,7 @@ public class TestStorage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 postDataLOGIN(email,password);
+
             }
         });
         //###########################
@@ -110,9 +112,20 @@ public class TestStorage extends AppCompatActivity {
                         Gson g = new Gson();
                         Usuario usu = g.fromJson(jsonString, Usuario.class);
 
+                        resultTextView.setText(usu.getName());
+
+                        /*
+                        for (Answer ans: usu.getAnswers()){
+
+                            resultTextView.setText(ans.getAnswerText());
+                        }
+                        */
+
+
+
                         //resultTextView.setText(response.toString());
 
-                        resultTextView.setText(usu.getName());
+                        //resultTextView.setText(usu.getPassword());
                     }
                 }, new Response.ErrorListener() {
             @Override
