@@ -23,15 +23,23 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragmentInicioRegistroContainer,inicioSession_fragment);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
 
     }
 
+    public void cambiarFragmento(){
+        RegistroUsuario_Fragment   registroUsuario_fragment = RegistroUsuario_Fragment.newInstance();
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragmentInicioRegistroContainer,registroUsuario_fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
 
     @Override
     public void changeFragment() {
-
+        cambiarFragmento();
     }
 }

@@ -1,7 +1,10 @@
 package pe.pucp.dduu.tel306;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -13,6 +16,15 @@ import android.widget.EditText;
 public class InicioSession_Fragment extends Fragment {
 EditText usuarioSesion, password ;
 Button buttonSesion, butonRegistro;
+Regreso regreso;
+
+
+  /*  @Override
+    public void onAttach(@NonNull Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("userFIle", Context.MODE_PRIVATE );
+        share
+        super
+    }*/
 
     public InicioSession_Fragment() {
         // Required empty public constructor
@@ -51,11 +63,18 @@ Button buttonSesion, butonRegistro;
         butonRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                    if (regreso != null ){
+                        regreso.changeFragment();
+                    }
             }
         });
 
-        return inflater.inflate(R.layout.fragment_inicio_session_, container, false);
+        return view;
+    }
+
+    public  void  setRegreso (View view){
+
+        this.regreso= regreso;
 
     }
 }
