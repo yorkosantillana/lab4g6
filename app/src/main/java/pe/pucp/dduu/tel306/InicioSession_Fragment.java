@@ -38,8 +38,22 @@ Button buttonSesion, butonRegistro;
         View view = inflater.inflate(R.layout.fragment_inicio_session_,container,false);
         usuarioSesion = view.findViewById(R.id.editTextUsuarioSesion);
         password= view.findViewById(R.id.editTextPassword);
-        butonRegistro = view.findViewById(R.id.buttonRegistro)
+        butonRegistro = view.findViewById(R.id.buttonRegistro);
+        buttonSesion= view.findViewById(R.id.buttonIniciarSesion);
 
+        buttonSesion.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        butonRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         return inflater.inflate(R.layout.fragment_inicio_session_, container, false);
 
