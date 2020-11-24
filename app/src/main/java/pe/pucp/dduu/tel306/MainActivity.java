@@ -59,8 +59,16 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
         //###########################
         //PARA CONSULTAR EL API
 
+        editTextUsuarioRegistro = findViewById(R.id.editTextUsuarioRegistro);
+        editTextMailRegistro = findViewById(R.id.editTextMailRegistro);
+        editTextPasswordRegistro = findViewById(R.id.editTextPasswordRegistro);
+        postApiBtnNew = (Button)findViewById(R.id.buttonRegistrarUsuario);
 
 
+
+        editTextUsuarioSesion = findViewById(R.id.editTextUsuarioSesion);
+        editTextPassword = findViewById(R.id.editTextPassword);
+        postApiBtnLogin = (Button)findViewById(R.id.buttonIniciarSesion);
 
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -68,14 +76,14 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
         postApiBtnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editTextUsuarioRegistro = findViewById(R.id.editTextUsuarioRegistro);
+
                 String name = editTextUsuarioRegistro.getText().toString();
-                editTextMailRegistro = findViewById(R.id.editTextMailRegistro);
+
                 String email = editTextMailRegistro.getText().toString();
-                editTextPasswordRegistro = findViewById(R.id.editTextPasswordRegistro);
+
                 String password = editTextPasswordRegistro.getText().toString();
 
-                postApiBtnNew = (Button)findViewById(R.id.buttonRegistrarUsuario);
+
                 postDataNEW(name,email,password);
             }
         });
@@ -83,12 +91,12 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
             @Override
             public void onClick(View v) {
 
-                editTextUsuarioSesion = findViewById(R.id.editTextUsuarioSesion);
+
                 String emailIniciar = editTextUsuarioSesion.getText().toString();
-                editTextPassword = findViewById(R.id.editTextPassword);
+
                 String passwordIniciar = editTextPassword.getText().toString();
 
-                postApiBtnLogin = (Button)findViewById(R.id.buttonIniciarSesion);
+
                 postDataLOGIN(emailIniciar, passwordIniciar);
 
                 Usuario[] arregloUsuario = usuDTO.getUsuario();
