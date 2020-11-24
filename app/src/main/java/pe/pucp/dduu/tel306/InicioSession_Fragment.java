@@ -7,8 +7,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class InicioSession_Fragment extends Fragment {
+EditText usuarioSesion, password ;
+Button buttonSesion, butonRegistro;
 
     public InicioSession_Fragment() {
         // Required empty public constructor
@@ -31,6 +35,13 @@ public class InicioSession_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_inicio_session_,container,false);
+        usuarioSesion = view.findViewById(R.id.editTextUsuarioSesion);
+        password= view.findViewById(R.id.editTextPassword);
+        butonRegistro = view.findViewById(R.id.buttonRegistro)
+
+
         return inflater.inflate(R.layout.fragment_inicio_session_, container, false);
+
     }
 }
