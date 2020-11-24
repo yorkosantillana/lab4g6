@@ -32,12 +32,9 @@ import java.util.Base64;
 public class TestStorage extends AppCompatActivity {
 
 
-    private Button getApiBtn, postApiBtn;
+    private Button getApiBtn, postApiBtnNew,postApiBtnLogin;
     private TextView resultTextView;
-    RequestQueue requestQueue;
-    private static final String TAG = MainActivity.class.getSimpleName();
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    //private static final String TAG = MainActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +43,14 @@ public class TestStorage extends AppCompatActivity {
 
         //###########################
         //PARA CONSULTAR EL API
+        String name = "";
+        String email= "yorko345@pucp.pe";
+        String password = "12345";
+
         resultTextView = (TextView) findViewById(R.id.resultTextView);
         getApiBtn = (Button) findViewById(R.id.getApiBtn);
-        postApiBtn = (Button)findViewById(R.id.postApiBtn);
+        postApiBtnNew = (Button)findViewById(R.id.postApiBtnNew);
+        postApiBtnLogin = (Button)findViewById(R.id.postApiBtnLogin);
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -59,18 +61,16 @@ public class TestStorage extends AppCompatActivity {
             }
         });
 
-        postApiBtn.setOnClickListener(new View.OnClickListener() {
+        postApiBtnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postDataNEW();
-                System.out.println(requestQueue);
+                postDataNEW(name,email,password);
             }
         });
-        postApiBtn.setOnClickListener(new View.OnClickListener() {
+        postApiBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postDataLOGIN();
-                System.out.println(requestQueue);
+                postDataLOGIN(email,password);
             }
         });
         //###########################
@@ -88,13 +88,13 @@ public class TestStorage extends AppCompatActivity {
 
 
 
-    public void postDataLOGIN() {
+    public void postDataLOGIN(String email, String password) {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject object = new JSONObject();
         try {
             //input your API parameters
-            object.put("email", "yorko123@pucp.pe");
-            object.put("password", "12345");
+            object.put("email", email);
+            object.put("password", password);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -104,42 +104,83 @@ public class TestStorage extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        resultTextView.setText("String Response : "+ response.toString());
+                        resultTextView.setText(response.toString());
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                resultTextView.setText("Error getting response");
+                resultTextView.setText("ERROR");
             }
         });
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void postDataNEW() {
+
+
+
+    public void postDataNEW(String name,String email, String password) {
+
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JSONObject object = new JSONObject();
+        String URL = "http://34.236.191.118:3000/api/v1/users/new";
+
         try {
-            //input your API parameters
-            object.put("email", "yorko123@pucp.pe");
-            object.put("password", "12345");
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("name", name);
+            jsonBody.put("email", email);
+            jsonBody.put("password", password);
+
+            final String requestBody = jsonBody.toString();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i("VOLLEY", response);
+                    resultTextView.setText(response); //AQUI ENTREGA EL true o false
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("VOLLEY", error.toString());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    String responseString = "";
+                    if (response != null) {
+                        String s = new String(response.data);
+                        responseString = String.valueOf(s);
+
+
+                        // can get more details such as response.headers
+                    }
+                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+            };
+
+            requestQueue.add(stringRequest);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        // Enter the correct url for your api service site
-        String url = "http://34.236.191.118:3000/api/v1/users/login";
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        resultTextView.setText("String Response : "+ response.toString());
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                resultTextView.setText("Error getting response");
-            }
-        });
-        requestQueue.add(jsonObjectRequest);
+
+
+
+
+
     }
 
 
