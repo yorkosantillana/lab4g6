@@ -22,6 +22,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -104,7 +105,14 @@ public class TestStorage extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        resultTextView.setText(response.toString());
+
+                        String jsonString = response.toString();
+                        Gson g = new Gson();
+                        Usuario usu = g.fromJson(jsonString, Usuario.class);
+
+                        //resultTextView.setText(response.toString());
+
+                        resultTextView.setText(usu.getName());
                     }
                 }, new Response.ErrorListener() {
             @Override
