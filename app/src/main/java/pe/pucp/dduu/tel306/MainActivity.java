@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
         MostrarFragmento();
 
 
-
+        /*
         //###########################
         //PARA CONSULTAR EL API
 
@@ -120,6 +120,9 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
         //###########################
 
 
+         */
+
+
 
 
 
@@ -163,6 +166,8 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.fragmentInicioRegistroContainer, registroUsuario_fragment);
         fragmentTransaction.commit();
+
+
     }
 
 
