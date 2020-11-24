@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +19,7 @@ import android.widget.Toast;
 
 public class RegistroUsuario_Fragment extends Fragment {
     EditText usuarioRegister, password, email ;
-    Button  butonRegistro;
+    Button  butonRegistro ,buttonRegresarInicioSession;
     String user , pwd ,ecorreo ;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -54,6 +56,7 @@ public class RegistroUsuario_Fragment extends Fragment {
         password= view.findViewById(R.id.editTextPasswordRegistro);
         email = view.findViewById(R.id.editTextMailRegistro);
         butonRegistro= view.findViewById(R.id.buttonRegistrarUsuario);
+        buttonRegresarInicioSession = view.findViewById(R.id.buttonIniciarSesionRegistro);
 
         butonRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +72,18 @@ public class RegistroUsuario_Fragment extends Fragment {
                 Toast.makeText(getContext(), "registrado", Toast.LENGTH_SHORT).show();
                         // Se resgitra
 
+            }
+        });
+
+        buttonRegresarInicioSession.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InicioSession_Fragment inicioSession_fragment = InicioSession_Fragment.newInstance();
+                FragmentManager supportFragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentInicioRegistroContainer,inicioSession_fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
 
