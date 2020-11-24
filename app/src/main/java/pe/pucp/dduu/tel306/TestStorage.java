@@ -59,7 +59,7 @@ public class TestStorage extends AppCompatActivity {
         getApiBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getData();
+                getQuestions();
             }
         });
 
@@ -205,22 +205,22 @@ public class TestStorage extends AppCompatActivity {
     }
 
 
-    // Get Request For JSONObject
-    public void getData(){
+
+    public void getQuestions(){
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         try {
-            String url = "http://34.236.191.118:3000/api/v1/users/login";
+            String url = "http://34.236.191.118:3000/api/v1/questions";
             JSONObject object = new JSONObject();
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     resultTextView.setText("Resposne : " + response.toString());
-                    Toast.makeText(getApplicationContext(), "I am OK !" + response.toString(), Toast.LENGTH_LONG).show();
+
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+                    
                 }
             });
             requestQueue.add(jsonObjectRequest);
