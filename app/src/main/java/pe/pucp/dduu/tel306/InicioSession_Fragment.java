@@ -15,7 +15,7 @@ public class InicioSession_Fragment extends Fragment {
     }
 
     // TODO: Rename and change types and number of parameters
-    public static InicioSession_Fragment newInstance(String param1, String param2) {
+    public static InicioSession_Fragment newInstance() {
         InicioSession_Fragment fragment = new InicioSession_Fragment();
 
         return fragment;

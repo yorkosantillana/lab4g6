@@ -19,10 +19,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void MostrarFragmento (){
 
-        RegistroUsuario_Fragment registroUsuario_fragment = RegistroUsuario_Fragment.newInstance();
+        InicioSession_Fragment inicioSession_fragment = InicioSession_Fragment.newInstance();
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragmentInicioRegistroContainer,registroUsuario_fragment);
+        fragmentTransaction.add(R.id.fragmentInicioRegistroContainer,inicioSession_fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
