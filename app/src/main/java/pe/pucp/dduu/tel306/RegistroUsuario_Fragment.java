@@ -1,15 +1,33 @@
 package pe.pucp.dduu.tel306;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class RegistroUsuario_Fragment extends Fragment {
+    EditText usuarioRegister, password, email ;
+    Button  butonRegistro;
+    String user , pwd ,ecorreo ;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+         sharedPreferences = context.getSharedPreferences("userFIle", Context.MODE_PRIVATE );
+         editor = sharedPreferences.edit();
+        super.onAttach(context);
+    }
 
     public RegistroUsuario_Fragment() {
         // Required empty public constructor
@@ -31,6 +49,29 @@ public class RegistroUsuario_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_registro_usuario_, container, false);
+        View view = inflater.inflate(R.layout.fragment_registro_usuario_,container,false);
+        usuarioRegister = view.findViewById(R.id.editTextUsuarioRegistro);
+        password= view.findViewById(R.id.editTextPasswordRegistro);
+        email = view.findViewById(R.id.editTextMailRegistro);
+        butonRegistro= view.findViewById(R.id.buttonRegistrarUsuario);
+
+        butonRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                        user = usuarioRegister.getText().toString();
+                        ecorreo  = email.getText().toString();
+                        pwd  =  password.getText().toString();
+
+                        editor.putString("user", user);
+                        editor.putString("ecorreo",ecorreo);
+                        editor.putString("pwd", pwd);
+                        editor.apply();
+                Toast.makeText(getContext(), "registrado", Toast.LENGTH_SHORT).show();
+                        // Se resgitra
+
+            }
+        });
+
+        return view;
     }
 }

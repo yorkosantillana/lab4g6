@@ -17,14 +17,16 @@ public class InicioSession_Fragment extends Fragment {
 EditText usuarioSesion, password ;
 Button buttonSesion, butonRegistro;
 Regreso regreso;
+String user , pwd ;
 
 
-  /*  @Override
+
+    @Override
     public void onAttach(@NonNull Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("userFIle", Context.MODE_PRIVATE );
-        share
-        super
-    }*/
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        super.onAttach(context);
+    }
 
     public InicioSession_Fragment() {
         // Required empty public constructor
@@ -56,6 +58,8 @@ Regreso regreso;
         buttonSesion.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                user = usuarioSesion.getText().toString();
+                pwd = password.getText().toString();
 
             }
         });
@@ -72,7 +76,7 @@ Regreso regreso;
         return view;
     }
 
-    public  void  setRegreso (View view){
+    public  void  setRegreso (Regreso regreso){
 
         this.regreso= regreso;
 
