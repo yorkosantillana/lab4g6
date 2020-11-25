@@ -91,7 +91,7 @@ public class RegistroUsuario_Fragment extends Fragment {
 
 
                 postDataNEW(name,correo,contra);
-                Toast.makeText(getContext(), "Registrado", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Registrado", Toast.LENGTH_SHORT).show();
                 //Validar el boolean
 
 
@@ -144,8 +144,9 @@ public class RegistroUsuario_Fragment extends Fragment {
                         fragmentTransaction.replace(R.id.fragmentInicioRegistroContainer, inicioSession_fragment);
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
+                        Toast.makeText(getActivity(), "Registro exitoso, ahora inicie sesion", Toast.LENGTH_SHORT).show();
                     }else{
-                        Toast.makeText(getActivity(),"Registro Invalido, vuelva a intentarlo",Toast.LENGTH_SHORT);
+                        Toast.makeText(getActivity(), "Registro Invalido, vuelva a intentarlo", Toast.LENGTH_SHORT).show();
                         Log.d("status","Registro Invalido, vuelva a intentarlo");
                     }
                 }
