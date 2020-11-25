@@ -4,6 +4,7 @@ public class PreguntasDto {
 private int id;
 private String questionText;
 private String questionDate;
+private  Answer[] answers;
 
     public int getId() {
         return id;
@@ -37,7 +38,7 @@ private String questionDate;
         this.answers = answers;
     }
 
-    private  Answer[] answers;
+
 
 
 
