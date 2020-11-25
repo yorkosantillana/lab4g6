@@ -142,18 +142,6 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
          */
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -198,13 +186,6 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
 
 
 
-
-
-
-
-
-
-
     public void postDataLOGIN(String emailIniciar, String passwordIniciar) {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject object = new JSONObject();
@@ -227,17 +208,12 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
                         usuDTO = g.fromJson(jsonString, UsuarioDTO.class);
 
                         //resultTextView.setText(usu.getName());
-
-
                         /*
                         for (Answer ans: usu.getAnswers()){
 
                             resultTextView.setText(ans.getAnswerText());
                         }
                         */
-
-
-
                         //resultTextView.setText(response.toString());
 
                         //resultTextView.setText(usu.getPassword());
