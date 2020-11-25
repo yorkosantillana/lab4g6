@@ -95,7 +95,6 @@ public class RegistroUsuario_Fragment extends Fragment {
                 //Validar el boolean
 
 
-
             }
         });
 
@@ -138,7 +137,20 @@ public class RegistroUsuario_Fragment extends Fragment {
                     booleanStatus = response;
                     Log.d("VOLLEY", booleanStatus);
                     //AQUI ENTREGA EL true o false
+                    if(booleanStatus.contentEquals("true")) {
+                        InicioSession_Fragment inicioSession_fragment = InicioSession_Fragment.newInstance();
+                        FragmentManager supportFragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.fragmentInicioRegistroContainer, inicioSession_fragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }else{
+                        Toast.makeText(getActivity(),"Registro Invalido, vuelva a intentarlo",Toast.LENGTH_SHORT);
+                        Log.d("status","Registro Invalido, vuelva a intentarlo");
+                    }
                 }
+
+
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
