@@ -204,9 +204,11 @@ public class InicioSession_Fragment extends Fragment {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     String responseString = "";
+                    String responseString2 = "";
                     if (response != null) {
                         String s = new String(response.data);
                         responseString = String.valueOf(s);
+
 
 
                         // can get more details such as response.headers
