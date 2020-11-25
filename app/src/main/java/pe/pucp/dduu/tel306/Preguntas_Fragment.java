@@ -60,4 +60,8 @@ public class Preguntas_Fragment extends Fragment {
 
         return view;
     }
+
+    public void getPreguntas(){
+
+    }
 }
