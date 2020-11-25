@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -40,19 +41,18 @@ import java.io.ObjectOutputStream;
 import java.io.UnsupportedEncodingException;
 
 public class InicioSession_Fragment extends Fragment {
-EditText usuarioSesion, password ;
-Button buttonSesion, butonRegistro;
-Regreso regreso;
-String user , pwd ;
+    EditText usuarioSesion, password;
+    Button buttonSesion, butonRegistro;
+    Regreso regreso;
+    String user, pwd;
 
-String stringStatus;
-Usuario usuDTO;
-
+    String stringStatus;
+    Usuario usuDTO;
 
 
     @Override
     public void onAttach(@NonNull Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("userFIle", Context.MODE_PRIVATE );
+        SharedPreferences sharedPreferences = context.getSharedPreferences("userFIle", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         super.onAttach(context);
     }
@@ -78,22 +78,19 @@ Usuario usuDTO;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_inicio_session_,container,false);
+        View view = inflater.inflate(R.layout.fragment_inicio_session_, container, false);
         usuarioSesion = view.findViewById(R.id.editTextUsuarioSesion);
-        password= view.findViewById(R.id.editTextPassword);
+        password = view.findViewById(R.id.editTextPassword);
         butonRegistro = view.findViewById(R.id.buttonRegistro);
-        buttonSesion= view.findViewById(R.id.buttonIniciarSesion);
+        buttonSesion = view.findViewById(R.id.buttonIniciarSesion);
 
-        buttonSesion.setOnClickListener(new View.OnClickListener(){
+        buttonSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 user = usuarioSesion.getText().toString();
                 pwd = password.getText().toString();
 
                 postDataLOGIN(user, pwd);
-
-
-
 
 
                 //Usuario arregloUsuario = usuDTO;
@@ -118,8 +115,6 @@ Usuario usuDTO;
                 }*/
 
 
-
-
             }
         });
 
@@ -129,7 +124,7 @@ Usuario usuDTO;
                 RegistroUsuario_Fragment registroUsuario_fragment = RegistroUsuario_Fragment.newInstance();
                 FragmentManager supportFragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentInicioRegistroContainer,registroUsuario_fragment);
+                fragmentTransaction.replace(R.id.fragmentInicioRegistroContainer, registroUsuario_fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -137,9 +132,6 @@ Usuario usuDTO;
 
         return view;
     }
-
-
-
 
 
     public void postDataLOGIN(String emailIniciar, String passwordIniciar) {
@@ -161,33 +153,37 @@ Usuario usuDTO;
                     Log.i("VOLLEY", response);
                     Log.d("VOLLEY", response);
                     Gson g = new Gson();
-                    usuDTO = g.fromJson(response,Usuario.class);
-                    Log.d("status",usuDTO.getName());
+                    usuDTO = g.fromJson(response, Usuario.class);
+
+                    Log.d("status", response);
 
                     String usuarioGuardar = g.toJson(usuDTO);
+                    Log.d("status", usuDTO.getName());
                     String fileNameJson = "sesionusuario.json";
-                    Log.d("status","Estamos a punto de guardar el JSON.");
-
-
+                    Log.d("status", "Estamos a punto de guardar el JSON.");
                     try (FileOutputStream fileOutputStream = getActivity().openFileOutput(fileNameJson, Context.MODE_PRIVATE);
-                         FileWriter fileWriter = new FileWriter(fileOutputStream.getFD());){
+                         FileWriter fileWriter = new FileWriter(fileOutputStream.getFD());) {
                         fileWriter.write(usuarioGuardar);
-                        Log.d("status1","Se guardó el JSON.");
+                        Log.d("status1", "Se guardó el JSON.");
 
-                    }
-                    catch (IOException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
 
                     }
 
+                    Preguntas_Fragment preguntas_fragment = new Preguntas_Fragment();
+                    FragmentManager supportFragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentInicioRegistroContainer, preguntas_fragment);
+                    fragmentTransaction.commit();
 
-
-                    //AQUI ENTREGA EL true o false
                 }
+
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.e("VOLLEY", error.toString());
+                    Toast.makeText(getActivity(), "Usuario o Contraseña incorrecta", Toast.LENGTH_SHORT).show();
                 }
             }) {
                 @Override
@@ -208,9 +204,11 @@ Usuario usuDTO;
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     String responseString = "";
+                    String responseString2 = "";
                     if (response != null) {
                         String s = new String(response.data);
                         responseString = String.valueOf(s);
+
 
 
                         // can get more details such as response.headers
@@ -226,13 +224,6 @@ Usuario usuDTO;
 
 
     }
-
-
-
-
-
-
-
 
 
 }
