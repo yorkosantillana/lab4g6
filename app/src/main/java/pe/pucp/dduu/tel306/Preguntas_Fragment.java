@@ -19,6 +19,7 @@ public class Preguntas_Fragment extends Fragment {
 
     public Preguntas_Fragment() {
         // Required empty public constructor
+
     }
 
 
