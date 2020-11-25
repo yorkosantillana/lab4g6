@@ -34,7 +34,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-public class MainActivity extends AppCompatActivity implements  Regreso {
+public class MainActivity extends AppCompatActivity {
     Fragment fragmento ;
 
     private Button getApiBtn, postApiBtnNew,postApiBtnLogin;
@@ -154,8 +154,7 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
     public void MostrarFragmento (){
 
        // InicioSession_Fragment inicioSession_fragment = InicioSession_Fragment.newInstance();
-    InicioSession_Fragment fragment = new InicioSession_Fragment();
-    fragment.setRegreso(this);
+        InicioSession_Fragment fragment = new InicioSession_Fragment();
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragmentInicioRegistroContainer,fragment);
@@ -163,26 +162,6 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
 
 
     }
-
-
-    public void cambiarFragmento(){
-       // RegistroUsuario_Fragment   registroUsuario_fragment = RegistroUsuario_Fragment.newInstance();
-        RegistroUsuario_Fragment registroUsuario_fragment = new RegistroUsuario_Fragment();
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.fragmentInicioRegistroContainer, registroUsuario_fragment);
-        fragmentTransaction.commit();
-
-
-    }
-
-
-    @Override
-    public void changeFragment() {
-        cambiarFragmento();
-    }
-
 
 
 

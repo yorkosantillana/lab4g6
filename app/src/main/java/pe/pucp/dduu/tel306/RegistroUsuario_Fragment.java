@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.internal.$Gson$Preconditions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +37,7 @@ import java.io.UnsupportedEncodingException;
 
 public class RegistroUsuario_Fragment extends Fragment {
     EditText usuarioRegister, password, email ;
-    Button  butonRegistro;
+    Button  butonRegistro, butonIniciarSesion ;
     String name , contra ,correo ;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -74,6 +77,7 @@ public class RegistroUsuario_Fragment extends Fragment {
         password= view.findViewById(R.id.editTextPasswordRegistro);
         email = view.findViewById(R.id.editTextMailRegistro);
         butonRegistro= view.findViewById(R.id.buttonRegistrarUsuario);
+        butonIniciarSesion = view.findViewById(R.id.buttonIniciarSesionRegistro);
 
         butonRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,13 +99,17 @@ public class RegistroUsuario_Fragment extends Fragment {
             }
         });
 
-
-
-
-
-
-
-
+        butonIniciarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InicioSession_Fragment inicioSession_fragment = InicioSession_Fragment.newInstance();
+                FragmentManager supportFragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentInicioRegistroContainer,inicioSession_fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
         return view;
     }

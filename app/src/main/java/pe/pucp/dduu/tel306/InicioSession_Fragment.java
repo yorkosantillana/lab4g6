@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -124,28 +126,18 @@ Usuario usuDTO;
         butonRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    if (regreso != null ){
-                        regreso.changeFragment();
-                    }
+                RegistroUsuario_Fragment registroUsuario_fragment = RegistroUsuario_Fragment.newInstance();
+                FragmentManager supportFragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentInicioRegistroContainer,registroUsuario_fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
-
-
-
-
-
-
-
-
 
         return view;
     }
 
-    public  void  setRegreso (Regreso regreso){
-
-        this.regreso= regreso;
-
-    }
 
 
 
