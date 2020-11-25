@@ -128,6 +128,7 @@ public class RegistroUsuario_Fragment extends Fragment {
                 public void onResponse(String response) {
                     Log.i("VOLLEY", response);
                     booleanStatus = response;
+                    Log.d("VOLLEY", booleanStatus);
                     //AQUI ENTREGA EL true o false
                 }
             }, new Response.ErrorListener() {

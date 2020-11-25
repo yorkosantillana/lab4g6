@@ -16,7 +16,7 @@ public class Usuario implements Serializable {
     private List<Answer> answers;
     //private String answers;
 
-    /*
+
     public void Usuario (int id,String name,String email,String password,String token,String createdAt,String updatedAt,String questions, List<Answer> answers){
         this.setId(id);
         this.setName(name);
@@ -29,7 +29,7 @@ public class Usuario implements Serializable {
         this.setAnswers(answers);
 
     }
-     */
+
 
     public int getId() {
         return id;
