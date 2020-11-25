@@ -1,6 +1,7 @@
 package pe.pucp.dduu.tel306;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.preg
 
     private  PreguntasDto[] preguntas;
     private Context contexto;
+    private  int preguntaId;
 
     public PreguntasAdapter(PreguntasDto[] preguntas, Context contexto) {
         this.preguntas = preguntas;
@@ -31,7 +33,12 @@ preguntasHolder preguntasHolder = new preguntasHolder(itemView);
 
     @Override
     public void onBindViewHolder(preguntasHolder holder, int position) {
-        //String
+        PreguntasDto preguntasDto= preguntas[position];
+        holder.preguntasDto=preguntasDto;
+        holder.contextVh= contexto;
+        holder.preguntaIdVh= preguntaId;
+        holder.llenarVIewHolder();
+            
     }
 
     @Override
@@ -42,10 +49,23 @@ preguntasHolder preguntasHolder = new preguntasHolder(itemView);
     public static  class preguntasHolder extends  RecyclerView.ViewHolder{
 
         public TextView textView;
+        public PreguntasDto preguntasDto;
+        public Context contextVh;
+        public int preguntaIdVh;
+
         public  preguntasHolder(View itemview){
             super(itemview);
             this.textView = itemview.findViewById(R.id.textViewPreguntas);
 
+        }
+        public  void  llenarVIewHolder(){
+            String data= preguntasDto.getQuestionText() + " / "+preguntasDto.getQuestionDate() + " / " + preguntasDto.getId();
+            textView.setText(data);
+            if (preguntasDto.getId()==preguntaIdVh){
+                textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
+            } else {
+                textView.setTypeface(null,  Typeface.NORMAL);
+            }
         }
     }
 }

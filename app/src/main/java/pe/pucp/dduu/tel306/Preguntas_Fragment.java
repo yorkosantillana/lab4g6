@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -96,10 +97,10 @@ public class Preguntas_Fragment extends Fragment {
                 Log.d("pregunta", response);
 
                 Gson gson =new Gson();
-                PreguntasDto[] arrayPreguntas = gson.fromJson(response, PreguntasDto[].class);
+                PreguntasDto preguntasDto = gson.fromJson(response, PreguntasDto.class);
+               // EditText editText = findby
+                // PreguntasDto[] arrayPreguntas = gson.fromJson(response, PreguntasDto[].class);
                 // Edit text para answer
-
-
 
             /*   for(PreguntasDto preguntasDto : arrayPreguntas){
                     Log.d("infoWS",preguntasDto.getId()+" / "+ preguntasDto.getQuestionDate()+" / "+ preguntasDto.getQuestionText());
@@ -115,9 +116,5 @@ public class Preguntas_Fragment extends Fragment {
             }
         });
         requestQueue.add(stringRequest);
-
-
-
-
     }
 }
