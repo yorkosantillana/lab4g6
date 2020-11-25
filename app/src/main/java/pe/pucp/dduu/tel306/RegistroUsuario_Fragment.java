@@ -91,7 +91,7 @@ public class RegistroUsuario_Fragment extends Fragment {
 
 
                 postDataNEW(name,correo,contra);
-
+                Toast.makeText(getContext(), "Registrado", Toast.LENGTH_SHORT).show();
                 //Validar el boolean
 
 

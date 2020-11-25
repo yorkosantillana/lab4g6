@@ -40,4 +40,8 @@ public class Preguntas_Fragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_preguntas_, container, false);
     }
+
+    public void getPreguntas(){
+
+    }
 }
