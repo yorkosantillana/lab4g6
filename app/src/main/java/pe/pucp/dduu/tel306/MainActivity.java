@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             if(arregloArchivos.length == 0){
                 MostrarFragmento();
             }else{
-                
+                MostrarFragmentePreguntas();
             }
 
             for(String archivo : arregloArchivos){
@@ -161,6 +161,14 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
 
+    }
+
+    public void MostrarFragmentePreguntas() {
+        Preguntas_Fragment preguntas_fragment = new Preguntas_Fragment();
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragmentInicioRegistroContainer,preguntas_fragment);
+        fragmentTransaction.commit();
     }
 
 
