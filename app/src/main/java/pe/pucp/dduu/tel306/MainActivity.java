@@ -52,7 +52,26 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
         super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
-        MostrarFragmento();
+
+
+            String[] arregloArchivos = fileList();
+
+            if(arregloArchivos.length == 0){
+                MostrarFragmento();
+            }else{
+                
+            }
+
+            for(String archivo : arregloArchivos){
+                Log.d("infoapp",archivo);
+
+            }
+
+
+
+
+
+
 
 
         /*
@@ -298,6 +317,13 @@ public class MainActivity extends AppCompatActivity implements  Regreso {
     }
 
 
+
+
+
+    public void eliminarArchivoLogin (){
+        deleteFile("sesionusuario.json");
+
+    }
 
 
 

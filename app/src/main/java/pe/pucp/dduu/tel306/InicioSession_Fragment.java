@@ -90,9 +90,13 @@ Usuario usuDTO;
 
                 postDataLOGIN(user, pwd);
 
+
+
+
+
                 //Usuario arregloUsuario = usuDTO;
                 //Log.d("status",usuDTO.getName()); //este es el puto problema
-                Gson g = new Gson();
+                //Gson g = new Gson();
 
                 /*
                 String usuarioGuardar = g.toJson(usuDTO);
@@ -169,7 +173,7 @@ Usuario usuDTO;
                     Log.d("status",usuDTO.getName());
 
                     String usuarioGuardar = g.toJson(usuDTO);
-                    String fileNameJson = "sesionusuario";
+                    String fileNameJson = "sesionusuario.json";
                     Log.d("status","Estamos a punto de guardar el JSON.");
 
 
