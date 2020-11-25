@@ -5,11 +5,12 @@ public class Answer {
     private int id;
     private String answerText;
 
+    /*
     public void Answer(int id, String answerText) {
         this.setId(id);
         this.setAnswerText(answerText);
 
-    }
+    }*/
 
     public int getId() {
         return id;

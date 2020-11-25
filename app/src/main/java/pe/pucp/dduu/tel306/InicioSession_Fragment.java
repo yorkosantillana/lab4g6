@@ -44,7 +44,7 @@ Regreso regreso;
 String user , pwd ;
 
 String stringStatus;
-UsuarioDTO usuDTO;
+Usuario usuDTO;
 
 
 
@@ -90,10 +90,12 @@ UsuarioDTO usuDTO;
 
                 postDataLOGIN(user, pwd);
 
-                Usuario[] arregloUsuario = usuDTO.getUsuario();
-                //Log.d("status",arregloUsuario);
+                //Usuario arregloUsuario = usuDTO;
+                //Log.d("status",usuDTO.getName()); //este es el puto problema
                 Gson g = new Gson();
-                String usuarioGuardar = g.toJson(arregloUsuario);
+
+                /*
+                String usuarioGuardar = g.toJson(usuDTO);
                 String fileNameJson = "sesionusuario";
                 Log.d("status","Estamos a punto de guardar el JSON.");
 
@@ -107,7 +109,7 @@ UsuarioDTO usuDTO;
                 catch (IOException e) {
                     e.printStackTrace();
 
-                }
+                }*/
 
 
 
@@ -174,7 +176,26 @@ UsuarioDTO usuDTO;
                     Log.i("VOLLEY", response);
                     Log.d("VOLLEY", response);
                     Gson g = new Gson();
-                    usuDTO = g.fromJson(response,UsuarioDTO.class);
+                    usuDTO = g.fromJson(response,Usuario.class);
+                    Log.d("status",usuDTO.getName());
+
+                    String usuarioGuardar = g.toJson(usuDTO);
+                    String fileNameJson = "sesionusuario";
+                    Log.d("status","Estamos a punto de guardar el JSON.");
+
+
+                    try (FileOutputStream fileOutputStream = getActivity().openFileOutput(fileNameJson, Context.MODE_PRIVATE);
+                         FileWriter fileWriter = new FileWriter(fileOutputStream.getFD());){
+                        fileWriter.write(usuarioGuardar);
+                        Log.d("status1","Se guardó el JSON.");
+
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+
+                    }
+
+
 
                     //AQUI ENTREGA EL true o false
                 }
