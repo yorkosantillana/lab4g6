@@ -10,9 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,8 +20,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.Arrays;
+import java.util.List;
+import java.util.prefs.PreferenceChangeEvent;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +34,7 @@ public class Preguntas_Fragment extends Fragment {
     Button buttonCerrarSesion;
     String questionText, questionDate;
     int id;
+    //PreguntaDTO pregDTO;
 
     public Preguntas_Fragment() {
         // Required empty public constructor
@@ -74,47 +74,43 @@ public class Preguntas_Fragment extends Fragment {
                 }
             });
 
+
+            getPreguntas();
+
         return view;
     }
 
-    public void getPreguntas(){
+    public void getPreguntas() {
+
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());  //getApplicationContext()
-        String URL = "http://34.236.191.118:3000/api/v1/users/login";
+        String URL = "http://34.236.191.118:3000/api/v1/questions";
 
-        JSONObject jsonBody = new JSONObject();
-        try {
-            jsonBody.put("questionText",questionText );
-            jsonBody.put("questionDate", questionDate);
-            jsonBody.put("id", id);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        final String requestBody = jsonBody.toString();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Gson g = new Gson();
+                        Pregunta[] arregloPreg = g.fromJson(response, Pregunta[].class);
+                        List<Pregunta> listaPreg = Arrays.asList(arregloPreg);
 
-        StringRequest stringRequest =new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("pregunta", response);
-
-                Gson gson =new Gson();
-                PreguntasDto preguntasDto = gson.fromJson(response, PreguntasDto.class);
-               // EditText editText = findby
-                // PreguntasDto[] arrayPreguntas = gson.fromJson(response, PreguntasDto[].class);
-                // Edit text para answer
-
-            /*   for(PreguntasDto preguntasDto : arrayPreguntas){
-                    Log.d("infoWS",preguntasDto.getId()+" / "+ preguntasDto.getQuestionDate()+" / "+ preguntasDto.getQuestionText());
-
-                }
-                ArrayAdapter<PreguntasDto> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item,arrayPreguntas);
-*/
-            }
-        }, new Response.ErrorListener() {
+                        Log.d("preguntas", arregloPreg[0].getQuestionText());
+                        //resultTextView.setText("Response is: "+ response);
+                        //resultTextView.setText("Response is: "+ response.substring(0,500));
+                    }
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.d("preguntas", "ERROR");
+                //resultTextView.setText("That didn't work!");
             }
         });
+
         requestQueue.add(stringRequest);
+
+
     }
+
+
+
 }

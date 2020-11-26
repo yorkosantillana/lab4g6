@@ -10,15 +10,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
 public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.preguntasHolder>{
 
-    private  PreguntasDto[] preguntas;
+    private  Pregunta[] preguntas;
     private Context contexto;
     private  int preguntaId;
 
-    public PreguntasAdapter(PreguntasDto[] preguntas, Context contexto) {
+    public PreguntasAdapter(Pregunta[] preguntas, Context contexto) {
         this.preguntas = preguntas;
         this.contexto = contexto;
     }
@@ -33,8 +31,8 @@ preguntasHolder preguntasHolder = new preguntasHolder(itemView);
 
     @Override
     public void onBindViewHolder(preguntasHolder holder, int position) {
-        PreguntasDto preguntasDto= preguntas[position];
-        holder.preguntasDto=preguntasDto;
+        Pregunta pregunta = preguntas[position];
+        holder.pregunta = pregunta;
         holder.contextVh= contexto;
         holder.preguntaIdVh= preguntaId;
         holder.llenarVIewHolder();
@@ -49,7 +47,7 @@ preguntasHolder preguntasHolder = new preguntasHolder(itemView);
     public static  class preguntasHolder extends  RecyclerView.ViewHolder{
 
         public TextView textView;
-        public PreguntasDto preguntasDto;
+        public Pregunta pregunta;
         public Context contextVh;
         public int preguntaIdVh;
 
@@ -59,9 +57,9 @@ preguntasHolder preguntasHolder = new preguntasHolder(itemView);
 
         }
         public  void  llenarVIewHolder(){
-            String data= preguntasDto.getQuestionText() + " / "+preguntasDto.getQuestionDate() + " / " + preguntasDto.getId();
+            String data= pregunta.getQuestionText() + " / "+ pregunta.getQuestionDate() + " / " + pregunta.getId();
             textView.setText(data);
-            if (preguntasDto.getId()==preguntaIdVh){
+            if (pregunta.getId()==preguntaIdVh){
                 textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
             } else {
                 textView.setTypeface(null,  Typeface.NORMAL);

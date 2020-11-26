@@ -2,7 +2,10 @@ package pe.pucp.dduu.tel306;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +30,9 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
@@ -59,7 +65,7 @@ public class TestStorage extends AppCompatActivity {
         getApiBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getQuestions();
+                getQuestions1();
             }
         });
 
@@ -214,6 +220,7 @@ public class TestStorage extends AppCompatActivity {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
+                    Log.d("infoapp",response.toString());
                     resultTextView.setText("Resposne : " + response.toString());
 
                 }
@@ -227,6 +234,36 @@ public class TestStorage extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+
+
+
+
+    public void getQuestions1() {
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());  //getApplicationContext()
+        String URL = "http://34.236.191.118:3000/api/v1/questions";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        resultTextView.setText("Response is: "+ response);
+                        //resultTextView.setText("Response is: "+ response.substring(0,500));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                resultTextView.setText("That didn't work!");
+            }
+        });
+
+        requestQueue.add(stringRequest);
+
+
     }
 
 

@@ -1,6 +1,8 @@
 package pe.pucp.dduu.tel306;
 
-public class PreguntasDto {
+import java.io.Serializable;
+
+public class Pregunta implements Serializable {
 private int id;
 private String questionText;
 private String questionDate;
