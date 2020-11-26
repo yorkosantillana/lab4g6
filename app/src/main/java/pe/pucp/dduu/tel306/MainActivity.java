@@ -1,11 +1,16 @@
 package pe.pucp.dduu.tel306;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -108,50 +113,60 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void postDataLOGIN(String emailIniciar, String passwordIniciar) {
-        if(isInternetAvailable()){
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JSONObject object = new JSONObject();
-        try {
-            //input your API parameters
-            object.put("email", emailIniciar);
-            object.put("password", passwordIniciar);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        // Enter the correct url for your api service site
-        String url = "http://34.236.191.118:3000/api/v1/users/login";
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
 
-                        String jsonString = response.toString();
-                        Gson g = new Gson();
-                        usuDTO = g.fromJson(jsonString, UsuarioDTO.class);
+        int permiso = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
-                        //resultTextView.setText(usu.getName());
+        if (permiso == PackageManager.PERMISSION_GRANTED) {
+            if (isInternetAvailable()) {
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                JSONObject object = new JSONObject();
+                try {
+                    //input your API parameters
+                    object.put("email", emailIniciar);
+                    object.put("password", passwordIniciar);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                // Enter the correct url for your api service site
+                String url = "http://34.236.191.118:3000/api/v1/users/login";
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+
+                                String jsonString = response.toString();
+                                Gson g = new Gson();
+                                usuDTO = g.fromJson(jsonString, UsuarioDTO.class);
+
+                                //resultTextView.setText(usu.getName());
                         /*
                         for (Answer ans: usu.getAnswers()){
 
                             resultTextView.setText(ans.getAnswerText());
                         }
                         */
-                        //resultTextView.setText(response.toString());
+                                //resultTextView.setText(response.toString());
 
-                        //resultTextView.setText(usu.getPassword());
+                                //resultTextView.setText(usu.getPassword());
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        resultTextView.setText("ERROR");
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                resultTextView.setText("ERROR");
+                });
+                requestQueue.add(jsonObjectRequest);
+            } else {
+                Toast.makeText(this, "no esta conectado a una red", Toast.LENGTH_SHORT).show();
             }
-        });
-        requestQueue.add(jsonObjectRequest);
         }
-        else{
-            Toast.makeText(this,"no esta conectado a una red", Toast.LENGTH_SHORT ).show();
+        else {
+            //no tengo los permisos
+            String[] permisos = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            ActivityCompat.requestPermissions(this, permisos, 1);
         }
     }
+
 
 
 
