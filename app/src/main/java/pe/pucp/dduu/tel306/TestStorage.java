@@ -65,7 +65,11 @@ public class TestStorage extends AppCompatActivity {
         getApiBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getQuestions1();
+                String questionid = "8";
+                String userid = "156";
+
+
+                getConteoStatsPreguntas(questionid);
             }
         });
 
@@ -265,6 +269,184 @@ public class TestStorage extends AppCompatActivity {
 
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void getQuestionByID(String id) {
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());  //getApplicationContext()
+        String URL = "http://34.236.191.118:3000/api/v1/questions/"+id;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        resultTextView.setText(response);
+                        //resultTextView.setText("Response is: "+ response.substring(0,500));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                resultTextView.setText("That didn't work!");
+            }
+        });
+
+        requestQueue.add(stringRequest);
+
+
+    }
+
+
+
+
+
+
+    public void postSubirRespuestaUsuario(String id,String iduser,String idanswer) {
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        String URL = "http://34.236.191.118:3000/api/v1/questions/"+id+"/answer";
+
+        try {
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("iduser", iduser);
+            jsonBody.put("idanswer", idanswer);
+
+            final String requestBody = jsonBody.toString();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i("VOLLEY", response);
+                    resultTextView.setText(response); //AQUI ENTREGA EL true o false
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("VOLLEY", error.toString());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    String responseString = "";
+                    if (response != null) {
+                        String s = new String(response.data);
+                        responseString = String.valueOf(s);
+
+
+                        // can get more details such as response.headers
+                    }
+                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+            };
+
+            requestQueue.add(stringRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public void getSiUsuarioRespondioPregunta(String questionid,String userid) {
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());  //getApplicationContext()
+        String URL = "http://34.236.191.118:3000/api/v1/answers/detail?questionid="+questionid+"&userid="+userid;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        resultTextView.setText(response);
+                        //resultTextView.setText("Response is: "+ response.substring(0,500));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                resultTextView.setText("That didn't work!");
+            }
+        });
+
+        requestQueue.add(stringRequest);
+
+
+    }
+
+
+
+    public void getConteoStatsPreguntas(String questionid) {
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());  //getApplicationContext()
+        String URL = "http://34.236.191.118:3000/api/v1/answers/stats?questionid="+questionid;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        resultTextView.setText(response);
+                        //resultTextView.setText("Response is: "+ response.substring(0,500));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                resultTextView.setText("That didn't work!");
+            }
+        });
+
+        requestQueue.add(stringRequest);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
