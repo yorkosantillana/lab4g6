@@ -2,4 +2,24 @@
     <string name="app_name">Lab4g6</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Vista Fragment_Inicio_Session -->
+    <string name="loginTitle">Iniciar Sesión</string>
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
+    <string name="buttonIniciar">Iniciar Sesión</string>
+    <string name="buttonReg">Registrarse</string>
+
+    <!-- Vista Fragment_Preguntas -->
+    <string name="buttonCerrarSes">Cerrar Sesión</string>
+
+
+    <!-- Vista Fragment_Registro_Ususario -->
+    <string name="regTitle">Registrar Usuario</string>
+    <string name="editNombre">Nombre</string>
+    <string name="editMail">Mail</string>
+    <string name="editContra">Contraseña</string>
+    <string name="butReg">Registrar</string>
+    <string name="butInic">Iniciar Sesión</string>
 </resources>
