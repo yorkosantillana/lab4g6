@@ -32,11 +32,12 @@ El presente proyecto consiste en la gestión de votaciones para la toma de decis
 
 ### Instalación
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clona este repositorio.
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/yorkosantillana/lab4g6
    ```
+2. Instala el proyecto en un dispositivo android.
+   
 3. Install NPM packages
    ```sh
    npm install
@@ -56,9 +57,9 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Desarrolladores
 
-*Yorkman Santillana
-*Igor Paniagua
-*Leonardo Ayala
+1. Yorkman Santillana
+2. Igor Paniagua
+3. Leonardo Ayala
 
 
 
