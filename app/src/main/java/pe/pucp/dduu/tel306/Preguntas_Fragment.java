@@ -12,14 +12,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.prefs.PreferenceChangeEvent;
@@ -89,7 +94,17 @@ public class Preguntas_Fragment extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
+
+                        if (response != null)
+                        {
+                            try {
+                                response=new String(response.getBytes("ISO-8859-1"), "UTF-8");
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        Log.d("preguntas", response);
                         Gson g = new Gson();
                         Pregunta[] arregloPreg = g.fromJson(response, Pregunta[].class);
                         List<Pregunta> listaPreg = Arrays.asList(arregloPreg);
