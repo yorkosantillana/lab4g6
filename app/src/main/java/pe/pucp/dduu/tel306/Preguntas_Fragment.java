@@ -1,5 +1,6 @@
 package pe.pucp.dduu.tel306;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -39,8 +42,8 @@ import java.util.List;
 public class Preguntas_Fragment extends Fragment {
 
     Button buttonCerrarSesion;
-    ListView listView;
     RecyclerView recyclerView;
+    ListView listView;
     String questionText, questionDate;
     int id;
     PreguntasAdapter preguntasAdapter;
@@ -70,9 +73,8 @@ public class Preguntas_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_preguntas_, container, false);
 
         buttonCerrarSesion = view.findViewById(R.id.buttonCerrarSesion);
-        listView = view.findViewById(R.id.listaPreguntas);
         recyclerView = view.findViewById(R.id.recyclerView);
-
+        listView = view.findViewById(R.id.listViewListaPreguntas);
 
             buttonCerrarSesion.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -124,6 +126,24 @@ public class Preguntas_Fragment extends Fragment {
 
                         recyclerView.setAdapter(preguntasAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+                        /*
+                        List<String> listPreguntas = null;
+                        for (Pregunta p : arregloPreg){
+                            listPreguntas.add(p.getQuestionText());
+                        }
+
+                        ArrayAdapter<String>fileList = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1);
+
+                        listView.setAdapter(fileList);
+
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Log.d("pregunta", String.valueOf(position));
+                            }
+                        });*/
+
 
                         //resultTextView.setText("Response is: "+ response);
                         //resultTextView.setText("Response is: "+ response.substring(0,500));

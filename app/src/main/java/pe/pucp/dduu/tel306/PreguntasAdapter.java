@@ -31,8 +31,12 @@ preguntasHolder preguntasHolder = new preguntasHolder(itemView);
 
     @Override
     public void onBindViewHolder(preguntasHolder holder, int position) {
-        String mCurrent = preguntas[position].getQuestionText();
-        holder.textView.setText(mCurrent);
+        Pregunta pregunta = preguntas[position];
+        holder.pregunta = pregunta;
+        holder.contextVh= contexto;
+        holder.preguntaIdVh= preguntaId;
+        holder.llenarVIewHolder();
+
     }
 
     @Override
@@ -53,7 +57,7 @@ preguntasHolder preguntasHolder = new preguntasHolder(itemView);
 
         }
         public  void  llenarVIewHolder(){
-            String data= pregunta.getQuestionText() + " / "+ pregunta.getQuestionDate() + " / " + pregunta.getId();
+            String data= pregunta.getQuestionText();
             textView.setText(data);
             if (pregunta.getId()==preguntaIdVh){
                 textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
