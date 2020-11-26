@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                // Enter the correct url for your api service site
+                // url para el API
                 String url = "http://34.236.191.118:3000/api/v1/users/login";
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
                         new Response.Listener<JSONObject>() {
@@ -138,16 +138,6 @@ public class MainActivity extends AppCompatActivity {
                                 Gson g = new Gson();
                                 usuDTO = g.fromJson(jsonString, UsuarioDTO.class);
 
-                                //resultTextView.setText(usu.getName());
-                        /*
-                        for (Answer ans: usu.getAnswers()){
-
-                            resultTextView.setText(ans.getAnswerText());
-                        }
-                        */
-                                //resultTextView.setText(response.toString());
-
-                                //resultTextView.setText(usu.getPassword());
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -171,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void postDataNEW(String name,String email, String password) {
+    public void postDataNEW(String name,String email, String password) {  // Registro del usuario
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         String URL = "http://34.236.191.118:3000/api/v1/users/new";
