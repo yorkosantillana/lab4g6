@@ -27,19 +27,20 @@
         android:id="@+id/recyclerView"
         android:layout_width="379dp"
         android:layout_height="293dp"
-        android:layout_marginTop="368dp"
+        android:layout_marginTop="216dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonCerrarSesion" />
 
     <ListView
         android:id="@+id/listViewListaPreguntas"
-        android:layout_width="345dp"
-        android:layout_height="280dp"
+        android:layout_width="279dp"
+        android:layout_height="186dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.242"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.219" />
+        app:layout_constraintVertical_bias="0.15" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

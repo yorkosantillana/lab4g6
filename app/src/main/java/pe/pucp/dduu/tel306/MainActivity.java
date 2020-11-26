@@ -6,12 +6,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -174,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void postDataLOGIN(String emailIniciar, String passwordIniciar) {
+        if(isInternetAvailable()){
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject object = new JSONObject();
         try {
@@ -212,6 +219,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         requestQueue.add(jsonObjectRequest);
+        }
+        else{
+            Toast.makeText(this,"no esta conectado a una red", Toast.LENGTH_SHORT ).show();
+        }
     }
 
 
@@ -286,6 +297,43 @@ public class MainActivity extends AppCompatActivity {
     public void eliminarArchivoLogin (){
         deleteFile("sesionusuario.json");
 
+    }
+    public boolean isInternetAvailable() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if (connectivityManager == null)
+            return false;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Network networks = connectivityManager.getActiveNetwork();
+            if (networks == null)
+                return false;
+
+            NetworkCapabilities networkCapabilities = connectivityManager.getNetworkCapabilities(networks);
+            if (networkCapabilities == null)
+                return false;
+
+            if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI))
+                return true;
+            if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR))
+                return true;
+            if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))
+                return true;
+            return false;
+        } else {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            if (activeNetworkInfo == null)
+                return false;
+            if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI)
+                return true;
+            if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE)
+                return true;
+            if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_ETHERNET)
+                return true;
+            return false;
+
+        }
     }
 
 
