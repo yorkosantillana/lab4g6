@@ -153,6 +153,7 @@ public class Preguntas_Fragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 Log.d("preguntas", "ERROR");
                 //resultTextView.setText("That didn't work!");
+                //Aquí debería ir set Preguntas
             }
         });
 
