@@ -5,12 +5,15 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,7 +25,6 @@ import com.google.gson.Gson;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.prefs.PreferenceChangeEvent;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,8 +34,11 @@ import java.util.prefs.PreferenceChangeEvent;
 public class Preguntas_Fragment extends Fragment {
 
     Button buttonCerrarSesion;
+    ListView listView;
+    RecyclerView recyclerView;
     String questionText, questionDate;
     int id;
+    PreguntasAdapter preguntasAdapter;
     //PreguntaDTO pregDTO;
 
     public Preguntas_Fragment() {
@@ -59,7 +64,11 @@ public class Preguntas_Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_preguntas_, container, false);
 
-            buttonCerrarSesion = view.findViewById(R.id.buttonCerrarSesion);
+        buttonCerrarSesion = view.findViewById(R.id.buttonCerrarSesion);
+        listView = view.findViewById(R.id.listaPreguntas);
+        recyclerView = view.findViewById(R.id.recyclerView);
+
+
             buttonCerrarSesion.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -95,6 +104,12 @@ public class Preguntas_Fragment extends Fragment {
                         List<Pregunta> listaPreg = Arrays.asList(arregloPreg);
 
                         Log.d("preguntas", arregloPreg[0].getQuestionText());
+
+                        PreguntasAdapter preguntasAdapter = new PreguntasAdapter(arregloPreg,getActivity());
+
+                        recyclerView.setAdapter(preguntasAdapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
                         //resultTextView.setText("Response is: "+ response);
                         //resultTextView.setText("Response is: "+ response.substring(0,500));
                     }

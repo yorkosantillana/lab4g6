@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PreguntasAdapter extends RecyclerView.Adapter<PreguntasAdapter.preguntasHolder>{
+public class PreguntasAdapter extends RecyclerView.Adapter <PreguntasAdapter.preguntasHolder>{
 
     private  Pregunta[] preguntas;
     private Context contexto;
@@ -31,17 +31,13 @@ preguntasHolder preguntasHolder = new preguntasHolder(itemView);
 
     @Override
     public void onBindViewHolder(preguntasHolder holder, int position) {
-        Pregunta pregunta = preguntas[position];
-        holder.pregunta = pregunta;
-        holder.contextVh= contexto;
-        holder.preguntaIdVh= preguntaId;
-        holder.llenarVIewHolder();
-            
+        String mCurrent = preguntas[position].getQuestionText();
+        holder.textView.setText(mCurrent);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return preguntas.length;
     }
 
     public static  class preguntasHolder extends  RecyclerView.ViewHolder{
